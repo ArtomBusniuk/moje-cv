@@ -1,0 +1,124 @@
+% =====================================================================
+%  CV w LaTeXu -- jedna strona A4
+%  Kompilacja:  pdflatex cv.tex   (albo: latexmk -pdf cv.tex, Overleaf)
+% =====================================================================
+\documentclass[10pt,a4paper]{article}
+
+% ---------- kodowanie, jezyk, czcionka ----------
+% dziala zarowno w pdfLaTeX (Overleaf), jak i w XeLaTeX/LuaLaTeX
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\else
+  \usepackage{fontspec}   % domyslnie Latin Modern z pelnym Unicode
+\fi
+\usepackage[polish]{babel}
+
+% ---------- uklad strony ----------
+\usepackage[a4paper,top=1.6cm,bottom=1.4cm,left=1.8cm,right=1.8cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{akcent}{RGB}{140,30,40}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% naglowki sekcji: kolorowy tytul + cienka linia
+\titleformat{\section}
+  {\large\scshape\color{akcent}}{}{0pt}{}[\vspace{-0.7ex}{\color{akcent}\titlerule}]
+\titlespacing*{\section}{0pt}{2.2ex}{1.2ex}
+
+\setlist[itemize]{leftmargin=1.2em,itemsep=1pt,topsep=2pt,parsep=0pt}
+
+% \pozycja{Tytul}{Daty}{Miejsce / technologie}
+\newcommand{\pozycja}[3]{%
+  \textbf{#1}\hfill{\small #2}\\
+  {\itshape #3}\par}
+
+\usepackage{graphicx}
+
+% ---------- DANE OSOBOWE ----------
+\newcommand{\imienazwisko}{Artom Busniuk}
+\newcommand{\telefon}{+48 72933132}            % TODO: sprawdz numer (brakuje cyfry?)
+\newcommand{\email}{kendiplay6@gmail.com}
+\newcommand{\github}{github.com/LOGIN}         % TODO: wpisz swoj login
+\newcommand{\miasto}{Wrocław}
+% Zdjecie: wrzuc plik zdjecie.jpg do folderu -- pojawi sie automatycznie.
+% Bez pliku naglowek jest wysrodkowany, bez zdjecia.
+\newcommand{\zdjecie}{zdjecie.jpg}
+
+\begin{document}
+
+% =====================================================================
+\IfFileExists{\zdjecie}{%
+  \begin{minipage}[c]{0.74\linewidth}
+    {\fontsize{26}{30}\selectfont\bfseries \imienazwisko}\\[2ex]
+    \small
+    \miasto\\[0.3ex]
+    tel.\ \telefon\\[0.3ex]
+    \href{mailto:\email}{\email}\\[0.3ex]
+    \href{https://\github}{\github}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.24\linewidth}\raggedleft
+    \includegraphics[width=3cm,height=3.8cm,keepaspectratio]{\zdjecie}
+  \end{minipage}
+}{%
+  \begin{center}
+    {\fontsize{26}{30}\selectfont\bfseries \imienazwisko}\\[1.5ex]
+    \small
+    \miasto\quad\textbar\quad
+    \telefon\quad\textbar\quad
+    \href{mailto:\email}{\email}\quad\textbar\quad
+    \href{https://\github}{\github}
+  \end{center}
+}
+
+% =====================================================================
+\section*{O mnie}
+Student pierwszego roku informatyki na Uniwersytecie Wrocławskim. Programuję
+w~Pythonie, poznaję programowanie funkcyjne i~algorytmikę. Szukam pierwszych
+praktyk lub stażu, na którym będę mógł uczyć się od doświadczonych programistów.
+
+% =====================================================================
+\section*{Wykształcenie}
+\pozycja{Informatyka, studia inżynierskie (I~stopnia)}{od października 2026}
+  {Instytut Informatyki, Uniwersytet Wrocławski}
+
+% =====================================================================
+\section*{Projekty}
+\pozycja{Wyszukiwarka palindromów w~tekście}{listopad 2026}{OCaml, Perl}
+\begin{itemize}
+  \item Program w~OCamlu znajdujący najdłuższy palindrom w~polskiej powieści
+        (ok.~600~KB, UTF-8) w~czasie liniowym przy użyciu algorytmu Manachera.
+  \item Jednolinijkowiec w~Perlu (17~znaków) sumujący wszystkie liczby w~pliku.
+\end{itemize}
+\medskip
+
+\pozycja{CV w~\LaTeX{}u}{listopad 2026}{\LaTeX, Git, GitHub}
+\begin{itemize}
+  \item Niniejsze CV, prowadzone w~repozytorium Git (wyłącznie pliki źródłowe).
+\end{itemize}
+
+% =====================================================================
+\section*{Umiejętności}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+  \textbf{Programowanie:} & Python; podstawy: OCaml, Perl \\
+  \textbf{Narzędzia:}     & Git, GitHub, Linux / macOS (terminal), \LaTeX \\
+  \textbf{Języki:}        & polski -- ojczysty, angielski -- B2 \\
+\end{tabularx}
+
+% =====================================================================
+\vfill
+{\scriptsize\color{gray}
+Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych
+do realizacji procesu rekrutacji zgodnie z~Rozporządzeniem Parlamentu Europejskiego
+i~Rady (UE) 2016/679 z~dnia 27 kwietnia 2016~r. w~sprawie ochrony osób fizycznych
+w~związku z~przetwarzaniem danych osobowych i~w~sprawie swobodnego przepływu takich
+danych oraz uchylenia dyrektywy 95/46/WE (RODO).\par}
+
+\end{document}
